@@ -62,7 +62,7 @@
     <div class="hero">
         <h1>Universal Toaster</h1>
         <p>Turn native HTML tooltips into modern, smart floating toasts.</p>
-        <a href="https://github.com/yourusername/universal-toaster" class="btn-download">View on GitHub</a>
+        <a href="https://github.com/MegaMind-Solution/toaster" class="btn-download">View on GitHub</a>
     </div>
 
     <div class="container">
@@ -85,13 +85,27 @@
         <!-- SECTION: INSTALLATION -->
         <section>
             <h2>Installation & Tutorial</h2>
-            <p>1. Download <code>toaster.js</code> and place it in your project.</p>
-            <p>2. Add the script to the bottom of your HTML body.</p>
+            <p>1. Download <a href="https://github.com/MegaMind-Solution/toaster" class="btn-download"><code>toaster.js</code></a> and place it in your project.</p>
+            <p>2. Or use hosted file</p>
+            <p>3. Add the script to the bottom of your HTML body.</p>
             <pre><code><span class="comment">&lt;!-- Optional: Configuration (Place BEFORE the script) --&gt;</span>
 &lt;script&gt;
   window.UniversalToasterConfig = {
-      borderRadius: "8px", 
-      fontSize: "14px"
+        // COLORS
+        // Set to null to allow Auto-Contrast (Recommended)
+        backgroundColor: null,   // e.g. "#333"
+        textColor:       null,   // e.g. "#fff"
+        
+        // TYPOGRAPHY
+        fontFamily:      "inherit", // Uses page font
+        fontSize:        "13px",
+        fontWeight:      "500",
+        
+        // SHAPE
+        borderRadius:    "6px",
+        padding:         "8px 12px",
+        boxShadow:       "0 4px 12px rgba(0,0,0,0.15)"
+    };
       <span class="comment">// Leave colors null for auto-contrast</span>
   };
 &lt;/script&gt;
