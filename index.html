@@ -3,71 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Toaster Demo</title>
-    
+    <title>Universal Toaster | JS Tooltip Library</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; padding: 40px; background-color: #f4f4f9; height: 150vh; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .box { padding: 20px; background: white; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .dark-box { background: #222; color: #fff; }
-        button { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px; }
-        .corner-test { position: fixed; bottom: 20px; right: 20px; background: red; color: white; padding: 20px; }
+        /* LANDING PAGE STYLES (Not part of the library) */
+        :root { --primary: #6366f1; --bg: #f8fafc; --text: #334155; --code-bg: #1e293b; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
+        
+        /* Layout */
+        .hero { background: white; padding: 60px 20px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+        .hero h1 { margin: 0; font-size: 2.5rem; color: #0f172a; }
+        .hero p { font-size: 1.2rem; color: #64748b; margin-top: 10px; }
+        .btn-download { display: inline-block; margin-top: 20px; padding: 12px 24px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        
+        /* Sections */
+        section { margin-bottom: 60px; }
+        h2 { font-size: 1.8rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; color: #0f172a; }
+        
+        /* Code Blocks */
+        pre { background: var(--code-bg); color: #cbd5e1; padding: 20px; border-radius: 8px; overflow-x: auto; font-family: 'Consolas', monospace; }
+        code { color: #93c5fd; }
+        .comment { color: #64748b; }
+
+        /* Demo Grid */
+        .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
+        .card button { background: white; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 500; color: #334155; transition: all 0.2s; }
+        .card button:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* Dark Mode Test Area */
+        .dark-zone { background: #0f172a; color: white; padding: 40px; border-radius: 12px; text-align: center; margin-top: 20px; }
+        .dark-zone button { background: #334155; border: none; color: white; }
+
+        /* Corner Test */
+        .corner-btn { position: fixed; bottom: 20px; right: 20px; background: #ef4444; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); font-weight: bold; }
     </style>
 
-    <!-- 1. CONFIGURATION SCRIPT (Optional - remove to use defaults) -->
+    <!-- 1. CONFIGURATION (Optional: Place this before loading the script) -->
     <script>
         window.UniversalToasterConfig = {
-            // Leave colors null to automatically adapt to the page theme
+            // "null" means it will auto-adapt to the page theme
             backgroundColor: null, 
-            textColor:       null,
+            textColor: null,
             
-            // Appearance
-            fontFamily:      "inherit",
-            fontSize:        "14px",
-            fontWeight:      "500",
-            borderRadius:    "8px",
-            padding:         "8px 16px"
+            // Customize Look
+            borderRadius: "6px",
+            fontFamily: "inherit",
+            fontSize: "13px",
+            padding: "8px 14px"
         };
     </script>
 </head>
 <body>
 
+    <!-- HERO HEADER -->
+    <div class="hero">
+        <h1>Universal Toaster</h1>
+        <p>Turn native HTML tooltips into modern, smart floating toasts.</p>
+        <a href="https://github.com/yourusername/universal-toaster" class="btn-download">View on GitHub</a>
+    </div>
+
     <div class="container">
-        <h1>Universal Toaster Demo</h1>
-        <p>Hover over the elements below to see the script in action.</p>
+        
+        <!-- SECTION: OVERVIEW -->
+        <section>
+            <h2>Overview</h2>
+            <p>
+                Universal Toaster is a plug-and-play JavaScript solution. It scans your page for any element with a 
+                <code>title="Example"</code> attribute, suppresses the browser's default tooltip, and replaces it with 
+                a sleek, hardware-accelerated floating label that follows the mouse.
+            </p>
+            <ul>
+                <li>⚡ <strong>Zero Dependencies:</strong> No jQuery, no CSS frameworks.</li>
+                <li>🌓 <strong>Auto-Contrast:</strong> Detects dark/light backgrounds automatically.</li>
+                <li>📐 <strong>Smart Positioning:</strong> Never goes off-screen (flips on edges).</li>
+            </ul>
+        </section>
 
-        <!-- Standard Test -->
-        <div class="box">
-            <h3>Standard Elements</h3>
-            <button title="I am a simple button tooltip">Hover Me</button>
-            <a href="#" title="Links work too!">Link with title</a>
-            <span title="Even spans work">Span Text</span>
-        </div>
+        <!-- SECTION: INSTALLATION -->
+        <section>
+            <h2>Installation & Tutorial</h2>
+            <p>1. Download <code>toaster.js</code> and place it in your project.</p>
+            <p>2. Add the script to the bottom of your HTML body.</p>
+            <pre><code><span class="comment">&lt;!-- Optional: Configuration (Place BEFORE the script) --&gt;</span>
+&lt;script&gt;
+  window.UniversalToasterConfig = {
+      borderRadius: "8px", 
+      fontSize: "14px"
+      <span class="comment">// Leave colors null for auto-contrast</span>
+  };
+&lt;/script&gt;
 
-        <!-- Single Line / Long Text Test -->
-        <div class="box">
-            <h3>Long Text Test (Single Line)</h3>
-            <button title="This is a very long text that should not wrap to a second line but instead stay on one single line essentially forever until it hits the max-width safety cap.">
-                Hover for Long Text
-            </button>
-        </div>
+<span class="comment">&lt;!-- Main Script --&gt;</span>
+&lt;script src="src/toaster.js"&gt;&lt;/script&gt;</code></pre>
+        </section>
 
-        <!-- Auto Contrast Test (Dark Background) -->
-        <div class="box dark-box">
-            <h3>Dark Background Test</h3>
-            <p>The script detects the dark background and turns the tooltip white automatically.</p>
-            <button style="background: #444; color: white; border:none;" title="I turned white because the background is dark!">
-                Hover Me (Dark Mode)
-            </button>
-        </div>
+        <!-- SECTION: DEMO -->
+        <section>
+            <h2>Interactive Playground</h2>
+            <p>Hover over the elements below to see the script in action.</p>
+
+            <div class="demo-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <h3>Standard Button</h3>
+                    <p>Standard HTML title attribute.</p>
+                    <button title="✅ Action successful!">Hover Me</button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <h3>Long Text</h3>
+                    <p>Handles long descriptions in one line.</p>
+                    <button title="This is a very long text that will not wrap to the next line. It stays clean and readable as a single toast message.">
+                        Hover Long Text
+                    </button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <h3>Links & Inputs</h3>
+                    <p>Works on any tag type.</p>
+                    <a href="#" title="🔗 Opens in a new tab" style="color:var(--primary)">Hover Link</a>
+                    <br><br>
+                    <input type="text" placeholder="Hover input..." title="📝 Please enter your username" style="padding:8px; border:1px solid #ccc; border-radius:4px;">
+                </div>
+            </div>
+
+            <!-- Dark Mode Test -->
+            <div class="dark-zone">
+                <h3>Auto-Contrast Test</h3>
+                <p>The script detects this dark container and switches the tooltip to White text on Black background automatically.</p>
+                <button title="💡 I adapted to the dark theme!">Hover Dark Mode Element</button>
+            </div>
+        </section>
+
     </div>
 
-    <!-- Edge Positioning Test -->
-    <div class="corner-test" title="I should flip Up and Left to stay on screen!">
-        Bottom Right Corner
-    </div>
+    <!-- Edge Case Test -->
+    <a href="#" class="corner-btn" title="🚀 I flipped Up and Left because I hit the corner!">
+        Corner Test
+    </a>
 
-    <!-- 2. LOAD MAIN SCRIPT -->
+    <!-- 2. LOAD SCRIPT -->
     <script src="src/toaster.js"></script>
 
 </body>
