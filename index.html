@@ -3,51 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Tooltip Demo</title>
+    <title>Universal Toaster Demo</title>
+    
     <style>
-        body { margin: 0; font-family: sans-serif; display: flex; height: 100vh; }
-        
-        /* Split Screen Demo */
-        .section { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; }
-        
-        /* Light Side */
-        .light-mode { background-color: #f4f4f4; color: #333; }
-        
-        /* Dark Side */
-        .dark-mode { background-color: #1a1a1a; color: #fff; }
-
-        button, input { padding: 10px 20px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; }
-        
-        .container { text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; padding: 40px; background-color: #f4f4f9; height: 150vh; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .box { padding: 20px; background: white; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .dark-box { background: #222; color: #fff; }
+        button { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px; }
+        .corner-test { position: fixed; bottom: 20px; right: 20px; background: red; color: white; padding: 20px; }
     </style>
 
-    <!-- 1. Include Setup (Optional) -->
-    <script src="src/setup.js"></script>
-    
-    <!-- 2. Include Main Engine -->
-    <script src="src/universal-tooltip.js" defer></script>
+    <!-- 1. CONFIGURATION SCRIPT (Optional - remove to use defaults) -->
+    <script>
+        window.UniversalToasterConfig = {
+            // Leave colors null to automatically adapt to the page theme
+            backgroundColor: null, 
+            textColor:       null,
+            
+            // Appearance
+            fontFamily:      "inherit",
+            fontSize:        "14px",
+            fontWeight:      "500",
+            borderRadius:    "8px",
+            padding:         "8px 16px"
+        };
+    </script>
 </head>
 <body>
 
-    <!-- Left Side: Light Mode (Tooltip should be Dark) -->
-    <div class="section light-mode">
-        <h2>Light Mode Area</h2>
-        <p>Hover over the elements below:</p>
-        
-        <button title="I am a button tooltip!">Hover Button</button>
-        
-        <input type="text" placeholder="Hover me..." title="Please enter your name here">
-        
-        <a href="#" title="This is a link tooltip that is very long and should remain on a single line regardless of length">Long Text Link</a>
+    <div class="container">
+        <h1>Universal Toaster Demo</h1>
+        <p>Hover over the elements below to see the script in action.</p>
+
+        <!-- Standard Test -->
+        <div class="box">
+            <h3>Standard Elements</h3>
+            <button title="I am a simple button tooltip">Hover Me</button>
+            <a href="#" title="Links work too!">Link with title</a>
+            <span title="Even spans work">Span Text</span>
+        </div>
+
+        <!-- Single Line / Long Text Test -->
+        <div class="box">
+            <h3>Long Text Test (Single Line)</h3>
+            <button title="This is a very long text that should not wrap to a second line but instead stay on one single line essentially forever until it hits the max-width safety cap.">
+                Hover for Long Text
+            </button>
+        </div>
+
+        <!-- Auto Contrast Test (Dark Background) -->
+        <div class="box dark-box">
+            <h3>Dark Background Test</h3>
+            <p>The script detects the dark background and turns the tooltip white automatically.</p>
+            <button style="background: #444; color: white; border:none;" title="I turned white because the background is dark!">
+                Hover Me (Dark Mode)
+            </button>
+        </div>
     </div>
 
-    <!-- Right Side: Dark Mode (Tooltip should be Light - *Only works if bg is body, or config is set*) -->
-    <!-- Note: Since the script checks document.body color, splitting screen 50/50 might trigger one main color. 
-         To test Dark Mode fully, change body background in CSS. -->
-    <div class="section dark-mode">
-        <h2>Dark Theme Context</h2>
-        <button style="background: #333; color: white; border: 1px solid #555;" title="Dark mode button tooltip">Hover Me</button>
+    <!-- Edge Positioning Test -->
+    <div class="corner-test" title="I should flip Up and Left to stay on screen!">
+        Bottom Right Corner
     </div>
+
+    <!-- 2. LOAD MAIN SCRIPT -->
+    <script src="src/toaster.js"></script>
 
 </body>
 </html>
