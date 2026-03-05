@@ -17,7 +17,7 @@ A lightweight, zero-dependency JavaScript library that instantly modernizes your
 3.  Link it at the end of your HTML `<body>`.
 
 ```html
-<script src="path/to/src/toaster.js"></script>
+<script src="src/toaster.js"></script>
 ```
 ```html
 <script src="https://megamind-solution.github.io/toaster/src/toaster.js"></script>
