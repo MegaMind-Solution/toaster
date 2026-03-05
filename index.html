@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Tooltip Demo</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; display: flex; height: 100vh; }
+        
+        /* Split Screen Demo */
+        .section { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; }
+        
+        /* Light Side */
+        .light-mode { background-color: #f4f4f4; color: #333; }
+        
+        /* Dark Side */
+        .dark-mode { background-color: #1a1a1a; color: #fff; }
+
+        button, input { padding: 10px 20px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; }
+        
+        .container { text-align: center; }
+    </style>
+
+    <!-- 1. Include Setup (Optional) -->
+    <script src="src/setup.js"></script>
+    
+    <!-- 2. Include Main Engine -->
+    <script src="src/universal-tooltip.js" defer></script>
+</head>
+<body>
+
+    <!-- Left Side: Light Mode (Tooltip should be Dark) -->
+    <div class="section light-mode">
+        <h2>Light Mode Area</h2>
+        <p>Hover over the elements below:</p>
+        
+        <button title="I am a button tooltip!">Hover Button</button>
+        
+        <input type="text" placeholder="Hover me..." title="Please enter your name here">
+        
+        <a href="#" title="This is a link tooltip that is very long and should remain on a single line regardless of length">Long Text Link</a>
+    </div>
+
+    <!-- Right Side: Dark Mode (Tooltip should be Light - *Only works if bg is body, or config is set*) -->
+    <!-- Note: Since the script checks document.body color, splitting screen 50/50 might trigger one main color. 
+         To test Dark Mode fully, change body background in CSS. -->
+    <div class="section dark-mode">
+        <h2>Dark Theme Context</h2>
+        <button style="background: #333; color: white; border: 1px solid #555;" title="Dark mode button tooltip">Hover Me</button>
+    </div>
+
+</body>
+</html>
