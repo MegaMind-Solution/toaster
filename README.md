@@ -1,60 +1,62 @@
-# Universal Toaster
+# Universal Toaster 🍞
 
-A lightweight, zero-dependency JavaScript solution that converts standard HTML `title` attributes into modern, floating, single-line "toast" style tooltips.
+A lightweight, zero-dependency JavaScript library that instantly modernizes your website's tooltips. It converts standard HTML `title` attributes into sleek, floating, single-line toast notifications that follow the mouse.
 
-## Features
+## 🚀 Features
 
-- **Universal Compatibility:** Works on any website, instantly converting all native tooltips.
-- **Smart Positioning:** Keeps tooltips on screen. If near the right edge, it flips left. If near the bottom, it flips up.
-- **Auto-Contrast:** Automatically detects if the page background is Light or Dark and adjusts the tooltip color for perfect readability.
-- **Single Line:** Enforces a clean, single-line design (no text wrapping).
-- **Customizable:** Configure fonts, radius, and colors via a simple setup object.
+*   **Universal:** Works on `div`, `span`, `a`, `button`, `input`—anything with a `title` attribute.
+*   **Smart Positioning:** Viewport collision detection ensures tooltips never fly off-screen. (Flips Left/Up near edges).
+*   **Auto-Theme:** Automatically detects the page background brightness and adjusts tooltip colors for high contrast (Dark on Light / Light on Dark).
+*   **Single Line:** Enforces a clean `white-space: nowrap` UI.
+*   **Zero Config:** Works out of the box, or fully customizable via JS.
 
-## Installation
+## 📦 Installation
 
-1. Download the `src/toaster.js` file.
-2. Include it at the bottom of your HTML body.
+1.  Download the `src/toaster.js` file.
+2.  Or use hosted file
+3.  Link it at the end of your HTML `<body>`.
 
 ```html
 <script src="path/to/src/toaster.js"></script>
 ```
+```html
+<script src="https://megamind-solution.github.io/toaster/src/toaster.js"></script>
+```
 
-## Configuration
+## ⚙️ Configuration (Optional)
 
-You can customize the appearance by defining the `window.UniversalToasterConfig` object **before** loading the script.
+You can customize the appearance by defining a global config object **before** loading the script.
 
 ```html
 <script>
     window.UniversalToasterConfig = {
         // COLORS
-        // Set to null to use Auto-Contrast (Recommended)
-        backgroundColor: null,   // e.g., "#333333"
-        textColor:       null,   // e.g., "#ffffff"
+        // Set to null to allow Auto-Contrast (Recommended)
+        backgroundColor: null,   // e.g. "#333"
+        textColor:       null,   // e.g. "#fff"
         
-        // FONTS & SIZE
-        fontFamily:      "inherit", // Uses your website's font
+        // TYPOGRAPHY
+        fontFamily:      "inherit", // Uses page font
         fontSize:        "13px",
         fontWeight:      "500",
         
-        // VISUALS
+        // SHAPE
         borderRadius:    "6px",
-        padding:         "8px 12px"
+        padding:         "8px 12px",
+        boxShadow:       "0 4px 12px rgba(0,0,0,0.15)"
     };
 </script>
-
-<script src="src/toaster.js"></script>
 ```
 
-## How it works
+## 🛠 Usage
 
-The script listens for `mouseover` events. When you hover over an element with a `title` attribute:
+Just add a standard `title` attribute to any HTML element.
 
-1. It saves the title text.
-2. It removes the `title` attribute (preventing the ugly browser default tooltip).
-3. It displays the text in a fixed `div` that follows your mouse cursor.
-4. It calculates viewport collisions to ensure the tooltip never goes off-screen.
-
-## License
-
-MIT
+```html
+<button title="Save changes to database">Save</button>
+<a href="#" title="Go to Home Page">Home</a>
 ```
+
+## 📄 License
+
+MIT License. Feel free to use in personal and commercial projects.
