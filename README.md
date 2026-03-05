@@ -1,77 +1,60 @@
-# Toaster Tooltip 🍞
+# Universal Toaster
 
-A lightweight, zero-dependency JavaScript solution that converts standard HTML `title` attributes into modern, floating toast-style tooltips.
+A lightweight, zero-dependency JavaScript solution that converts standard HTML `title` attributes into modern, floating, single-line "toast" style tooltips.
 
 ## Features
-- 🚀 **Zero Dependencies**: Pure Vanilla JS.
-- 🌓 **Auto-Contrast**: Detects your page background and automatically applies High Contrast colors (Dark tooltip on Light pages, and vice versa).
-- 📐 **Smart Positioning**: Stays on screen. Flips to the left or top if the cursor is near the edge.
-- 🎨 **Fully Configurable**: Set your own fonts, radius, and colors via a simple setup object.
-- ⚡ **Single Line**: Enforces single-line display for a clean UI look.
+
+- **Universal Compatibility:** Works on any website, instantly converting all native tooltips.
+- **Smart Positioning:** Keeps tooltips on screen. If near the right edge, it flips left. If near the bottom, it flips up.
+- **Auto-Contrast:** Automatically detects if the page background is Light or Dark and adjusts the tooltip color for perfect readability.
+- **Single Line:** Enforces a clean, single-line design (no text wrapping).
+- **Customizable:** Configure fonts, radius, and colors via a simple setup object.
 
 ## Installation
 
-1. Download `universal-tooltip.js` and `setup.js`.
-2. Add them to your HTML file (place them at the bottom of `<body>` or in `<head>` with `defer`).
+1. Download the `src/toaster.js` file.
+2. Include it at the bottom of your HTML body.
 
 ```html
-<script src="path/to/setup.js"></script>
-<script src="path/to/universal-tooltip.js"></script>
+<script src="path/to/src/toaster.js"></script>
 ```
 
-## Usage
+## Configuration
 
-Simply add a standard `title` attribute to any HTML element. The script handles the rest.
+You can customize the appearance by defining the `window.UniversalToasterConfig` object **before** loading the script.
 
 ```html
-<button title="This will become a floating toast!">Hover Me</button>
+<script>
+    window.UniversalToasterConfig = {
+        // COLORS
+        // Set to null to use Auto-Contrast (Recommended)
+        backgroundColor: null,   // e.g., "#333333"
+        textColor:       null,   // e.g., "#ffffff"
+        
+        // FONTS & SIZE
+        fontFamily:      "inherit", // Uses your website's font
+        fontSize:        "13px",
+        fontWeight:      "500",
+        
+        // VISUALS
+        borderRadius:    "6px",
+        padding:         "8px 12px"
+    };
+</script>
+
+<script src="src/toaster.js"></script>
 ```
 
-## Configuration (`setup.js`)
+## How it works
 
-Edit `src/setup.js` to match your brand. Set values to `null` to use automatic defaults.
+The script listens for `mouseover` events. When you hover over an element with a `title` attribute:
 
-```javascript
-window.UniversalTooltipConfig = {
-    backgroundColor: null,      // Let script decide (Auto-Contrast)
-    textColor:       null,      // Let script decide
-    fontFamily:      "Arial",   // Custom Font
-    fontSize:        "13px",
-    borderRadius:    "4px"
-};
-```
+1. It saves the title text.
+2. It removes the `title` attribute (preventing the ugly browser default tooltip).
+3. It displays the text in a fixed `div` that follows your mouse cursor.
+4. It calculates viewport collisions to ensure the tooltip never goes off-screen.
 
 ## License
-MIT License. Free to use in personal and commercial projects.
-```
 
----
-
-### 5. `.gitignore`
-**Description:** Tells Git what not to upload.
-
-```text
-.DS_Store
-node_modules/
-.vscode/
-dist/
-```
-
----
-
-### How to Upload to GitHub
-
-1.  **Create a folder** on your PC named `universal-tooltip`.
-2.  **Create the files** listed above inside that folder.
-3.  Open your terminal/command prompt in that folder.
-4.  Run these commands:
-
-```bash
-git init
-git add .
-git commit -m "Initial commit: Universal Tooltip Setup"
-git branch -M main
-# Replace URL below with your actual GitHub repository URL
-git remote add origin https://github.com/YOUR_USERNAME/universal-tooltip.git
-git push -u origin main
+MIT
 ```
