@@ -12,7 +12,7 @@ A lightweight, zero-dependency JavaScript library that instantly modernizes your
 
 ## 📦 Installation
 
-1.  Download the `src/toaster.js` file.
+1.  Download the [`src/toaster.js`](https://gitfolderdownloader.github.io/api/?=https://github.com/MegaMind-Solution/toaster/tree/main/src) file.
 2.  Or use hosted file
 3.  Link it at the end of your HTML `<body>`.
 
