@@ -1,62 +1,87 @@
-# Universal Toaster 🍞
+# Universal Toaster
 
-A lightweight, zero-dependency JavaScript library that instantly modernizes your website's tooltips. It converts standard HTML `title` attributes into sleek, floating, single-line toast notifications that follow the mouse.
+A lightweight, zero-dependency JavaScript library that turns standard HTML `title` attributes into **Rich Text** floating tooltips. 
 
-## 🚀 Features
+**New in v3.0:** Support for Colors, Backgrounds, Custom Fonts (Google Fonts), Font Weights, and Text Truncation inside the tooltip!
 
-*   **Universal:** Works on `div`, `span`, `a`, `button`, `input`—anything with a `title` attribute.
-*   **Smart Positioning:** Viewport collision detection ensures tooltips never fly off-screen. (Flips Left/Up near edges).
-*   **Auto-Theme:** Automatically detects the page background brightness and adjusts tooltip colors for high contrast (Dark on Light / Light on Dark).
-*   **Single Line:** Enforces a clean `white-space: nowrap` UI.
-*   **Zero Config:** Works out of the box, or fully customizable via JS.
+## ✨ Features
+
+- **Rich Text Engine:** Use simple shortcodes to style specific parts of the text.
+- **Auto-Fetch Fonts:** Use `&fn=FontName;` and it automatically loads it from Google Fonts.
+- **Smart Positioning:** Keeps tooltips on screen (flips edges).
+- **Auto-Contrast:** Detects Dark/Light backgrounds and adjusts colors automatically.
+- **Safety:** Sanitizes HTML to prevent XSS while allowing styling.
+- **Stability:** Auto-closes on Scroll, Click, or Tab Switch.
 
 ## 📦 Installation
 
-1.  Download the [`src/toaster.js`](https://gitfolderdownloader.github.io/api/?=https://github.com/MegaMind-Solution/toaster/tree/main/src) file.
-2.  Or use hosted file
-3.  Link it at the end of your HTML `<body>`.
+1.  Download the [`src/toaster.js`](https://gitfolderdownloader.github.io/api/?=https://github.com/MegaMind-Solution/toaster/tree/main/src&name=Universal%20Toaster) Or Use hosted script
+2.  Add it to the bottom of your `<body>`.
 
 ```html
 <script src="src/toaster.js"></script>
 ```
+
 ```html
 <script src="https://megamind-solution.github.io/toaster/src/toaster.js"></script>
 ```
 
-## ⚙️ Configuration (Optional)
+## 🎨 Rich Text Syntax
 
-You can customize the appearance by defining a global config object **before** loading the script.
+You can use these codes inside any `title="..."` attribute.
+
+| Feature | Syntax | Example |
+| :--- | :--- | :--- |
+| **Text Color** | `&cl=Value; ... &cl;` | `&cl=red;Error&cl;` |
+| **Background** | `&bgcl=Value; ... &bgcl;` | `&bgcl=yellow;Highlight&bgcl;` |
+| **Font Family** | `&fn=Name; ... &fn;` | `&fn=Roboto;Hello&fn;` |
+| **Font Weight** | `&fw=Weight; ... &fw;` | `&fw=bold;Bold&fw;` |
+| **Truncate** | `&chr=Limit; ... &chr;` | `&chr=10;VeryLongText&chr;` |
+
+### Examples
+
+**1. Colors & Highlights**
+```html
+<button title="This is &cl=red;Important&cl; and this is &bgcl=yellow;Highlighted&bgcl;">Hover Me</button>
+```
+
+**2. Custom Fonts (Google Fonts)**
+*The script automatically adds the `<link>` tag for the font.*
+```html
+<button title="&fn=Pacifico;Start with a cool font&fn; and end normal.">Hover Me</button>
+```
+
+**3. Character Limit**
+*Useful for previewing long database content.*
+```html
+<span title="Preview: &chr=20;This is a very long description that will be cut off&chr;">Hover for preview</span>
+```
+
+## ⚙️ Global Configuration (Optional)
+
+Place this **before** loading the script to set global defaults.
 
 ```html
 <script>
     window.UniversalToasterConfig = {
-        // COLORS
-        // Set to null to allow Auto-Contrast (Recommended)
-        backgroundColor: null,   // e.g. "#333"
-        textColor:       null,   // e.g. "#fff"
+        // COLORS (Set to null for Auto-Contrast)
+        backgroundColor: null, 
+        textColor:       null,
         
-        // TYPOGRAPHY
-        fontFamily:      "inherit", // Uses page font
-        fontSize:        "13px",
-        fontWeight:      "500",
-        
-        // SHAPE
+        // VISUALS
         borderRadius:    "6px",
+        fontSize:        "13px",
+        fontFamily:      "inherit", // Default font
         padding:         "8px 12px",
-        boxShadow:       "0 4px 12px rgba(0,0,0,0.15)"
+        boxShadow:       "0 4px 12px rgba(0,0,0,0.2)"
     };
 </script>
 ```
 
-## 🛠 Usage
+## 🛡 Security Note
 
-Just add a standard `title` attribute to any HTML element.
+The script includes an HTML sanitizer. It escapes raw HTML tags (like `<script>`) to prevent XSS attacks, while properly parsing the custom `&cmd=val;` syntax.
 
-```html
-<button title="Save changes to database">Save</button>
-<a href="#" title="Go to Home Page">Home</a>
-```
+## License
 
-## 📄 License
-
-MIT License. Feel free to use in personal and commercial projects.
+The Project is Creaate Under MIT License EveryOne Can Modify and Improve this
