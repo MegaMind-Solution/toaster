@@ -32,6 +32,7 @@ You can use these codes inside any `title="..."` attribute.
 
 | Feature | Syntax | Example |
 | :--- | :--- | :--- |
+| **Text Color** | `&fz=Value; ... &fz;` | `&fz=12px;Error&fz;` |
 | **Text Color** | `&cl=Value; ... &cl;` | `&cl=red;Error&cl;` |
 | **Background** | `&bgcl=Value; ... &bgcl;` | `&bgcl=yellow;Highlight&bgcl;` |
 | **Font Family** | `&fn=Name; ... &fn;` | `&fn=Roboto;Hello&fn;` |
@@ -40,9 +41,9 @@ You can use these codes inside any `title="..."` attribute.
 
 ### Examples
 
-**1. Colors & Highlights**
+**1. Size, Colors & Highlights**
 ```html
-<button title="This is &cl=red;Important&cl; and this is &bgcl=yellow;Highlighted&bgcl;">Hover Me</button>
+<button title="This is &fz=12px;&cl=red;Important&cl; and this is &bgcl=yellow;Highlighted&bgcl;&fz;">Hover Me</button>
 ```
 
 **2. Custom Fonts (Google Fonts)**
