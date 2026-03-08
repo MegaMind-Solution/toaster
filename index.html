@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://avatars.githubusercontent.com/u/191318204?s=48&v=4" rel="icon" />
     <title>Universal Toaster v3.0 | Rich Text Tooltips</title>
     <style>
         :root { --primary: #4f46e5; --bg: #f8fafc; --text: #334155; --code-bg: #1e293b; --card-bg: #ffffff; }
@@ -12,6 +13,8 @@
         .hero { background: white; padding: 60px 20px; text-align: center; border-bottom: 1px solid #e2e8f0; }
         .hero h1 { margin: 0; font-size: 2.8rem; color: #0f172a; letter-spacing: -1px; }
         .hero p { font-size: 1.2rem; color: #64748b; max-width: 600px; margin: 15px auto 0; }
+        .btn-download { display: inline-block; margin-top: 20px; padding: 12px 24px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
         .badge { display: inline-block; background: #dbeafe; color: #1e40af; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
 
         .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
@@ -41,6 +44,7 @@
         .btn-demo:hover { border-color: var(--primary); color: var(--primary); background: #eef2ff; }
 
         .dark-mode-zone { background: #0f172a; padding: 30px; border-radius: 12px; text-align: center; color: white; }
+         .corner-btn { position: fixed; bottom: 20px; right: 20px; background: #ef4444; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); font-weight: bold; }
     </style>
 
     <!-- CONFIGURATION -->
@@ -56,13 +60,28 @@
 <body>
 
     <div class="hero">
+        <p>Turn native HTML tooltips into modern, smart floating toasts.</p>
         <span class="badge">New v3.0</span>
         <h1>Universal Toaster</h1>
         <p>The zero-dependency tooltip library with <b>Rich Text Formatting</b>, Google Fonts support, and smart positioning.</p>
+         <a href="https://github.com/MegaMind-Solution/toaster" class="btn-download">View on GitHub</a>
     </div>
 
     <div class="container">
-        
+         <!-- OVERVIEW -->
+         <section>
+            <h2>Overview</h2>
+            <p>
+                Universal Toaster is a plug-and-play JavaScript solution. It scans your page for any element with a 
+                <code>title="Example"</code> attribute, suppresses the browser's default tooltip, and replaces it with 
+                a sleek, hardware-accelerated floating label that follows the mouse.
+            </p>
+            <ul>
+                <li>⚡ <strong>Zero Dependencies:</strong> No jQuery, no CSS frameworks.</li>
+                <li>🌓 <strong>Auto-Contrast:</strong> Detects dark/light backgrounds automatically.</li>
+                <li>📐 <strong>Smart Positioning:</strong> Never goes off-screen (flips on edges).</li>
+            </ul>
+        </section>
         <!-- SYNTAX GUIDE -->
         <section>
             <h2>Syntax Cheat Sheet</h2>
@@ -105,9 +124,42 @@
             </table>
         </section>
 
+         <!-- SECTION: INSTALLATION -->
+        <section>
+            <h2>Installation & Tutorial</h2>
+            <p>1. Download <a href="https://gitfolderdownloader.github.io/api/?=https://github.com/MegaMind-Solution/toaster/tree/main/src" class="btn-download" style="padding: 0;background: transparent;border-radius: 0;"><code>toaster.js</code></a> and place it in your project.</p>
+            <p>2. Or use hosted file</p>
+            <p>3. Add the script to the bottom of your HTML body.</p>
+            <pre><code><span class="comment">&lt;!-- Optional: Configuration (Place BEFORE the script) --&gt;</span>
+&lt;script&gt;
+  window.UniversalToasterConfig = {
+        // COLORS
+        // Set to null to allow Auto-Contrast (Recommended)
+        backgroundColor: null,   // e.g. "#333"
+        textColor:       null,   // e.g. "#fff"
+        
+        // TYPOGRAPHY
+        fontFamily:      "inherit", // Uses page font
+        fontSize:        "13px",
+        fontWeight:      "500",
+        
+        // SHAPE
+        borderRadius:    "6px",
+        padding:         "8px 12px",
+        boxShadow:       "0 4px 12px rgba(0,0,0,0.15)"
+    };
+      <span class="comment">// Leave colors null for auto-contrast</span>
+  };
+&lt;/script&gt;
+
+<span class="comment">&lt;!-- Main Script --&gt;</span>
+&lt;script src="src/toaster.js"&gt;&lt;/script&gt;</code></pre>
+        </section>
+
         <!-- LIVE DEMOS -->
         <section>
             <h2>Live Examples</h2>
+              <p>Hover over the elements below to see the script in action.</p>
             <div class="grid">
                 
                 <!-- 1. COLORS -->
@@ -173,6 +225,9 @@ Preview: &chr=20;This is a very long description that will be cut off automatica
 
     </div>
 
+    <a href="" class="corner-btn" title="🚀 I flipped Up and Left because I hit the corner!">
+        Corner Test
+    </a>
     <!-- SCRIPT LOADER -->
     <script src="src/toaster.js"></script>
 
