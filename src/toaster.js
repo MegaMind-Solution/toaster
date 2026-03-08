@@ -1,4 +1,11 @@
 /**
+ * Universal Toaster (v2.0 - Stability Fixes)
+ * ------------------------------------------------------------------
+ * Fixed: Tooltips sticking when scrolling, clicking, or changing tabs.
+ * ------------------------------------------------------------------
+ */
+
+/**
  * Universal Toaster (v3.0 - Rich Text & Styles)
  * ------------------------------------------------------------------
  * Features:
@@ -9,9 +16,9 @@
  * ------------------------------------------------------------------
  */
 
-(function() {
+(function () {
     const userConfig = window.UniversalToasterConfig || {};
-    
+
     // --- 1. SETUP STYLES ---
     const settings = {
         bg: userConfig.backgroundColor || null,
@@ -54,7 +61,7 @@
             display: inline-block;
         }
     `;
-    
+
     const styleSheet = document.createElement('style');
     styleSheet.textContent = css;
     document.head.appendChild(styleSheet);
@@ -82,12 +89,12 @@
     // B. Google Fonts Loader
     function loadGoogleFont(fontName) {
         if (!fontName || loadedFonts.has(fontName)) return;
-        
+
         const link = document.createElement('link');
         link.href = `https://fonts.googleapis.com/css?family=${fontName.replace(/\s+/g, '+')}&display=swap`;
         link.rel = 'stylesheet';
         document.head.appendChild(link);
-        
+
         loadedFonts.add(fontName);
     }
 
@@ -99,8 +106,8 @@
 
         // 2. Decode our specific command ampersands so regex works
         // (Because escapeHtml turns '&cl=' into '&amp;cl=')
-        text = text.replace(/&amp;(cl|bgcl|fw|fn|chr)=/g, "&$1=");
-        text = text.replace(/&amp;(cl|bgcl|fw|fn|chr);/g, "&$1;");
+        text = text.replace(/&amp;(fz|cl|bgcl|fw|fn|chr)=/g, "&$1=");
+        text = text.replace(/&amp;(fz|cl|bgcl|fw|fn|chr);/g, "&$1;");
 
         // 3. Process Character Limits (&chr=10; text &chr;)
         text = text.replace(/&chr=(\d+);(.*?)&chr;/g, (match, limit, content) => {
@@ -120,16 +127,17 @@
         // 5. Process Colors & Weights
         // Replaces &tag=value; with <span style="...">
         const replacers = [
-            { tag: 'cl',   css: 'color' },
+            { tag: 'fz', css: 'font-size' },
+            { tag: 'cl', css: 'color' },
             { tag: 'bgcl', css: 'background-color' },
-            { tag: 'fw',   css: 'font-weight' }
+            { tag: 'fw', css: 'font-weight' }
         ];
 
         replacers.forEach(item => {
             // Replace Opener: &cl=red; -> <span style="color:red">
             const openerRegex = new RegExp(`&${item.tag}=(.*?);`, 'g');
             text = text.replace(openerRegex, `<span style="${item.css}:$1">`);
-            
+
             // Replace Closer: &cl; -> </span>
             const closerRegex = new RegExp(`&${item.tag};`, 'g');
             text = text.replace(closerRegex, '</span>');
@@ -179,7 +187,7 @@
 
     document.addEventListener('mouseover', (e) => {
         const target = e.target.closest('[title], [data-toaster-title]');
-        
+
         if (target) {
             if (target.hasAttribute('title')) {
                 const raw = target.getAttribute('title');
@@ -192,10 +200,10 @@
             const rawText = target.getAttribute('data-toaster-title');
             if (rawText) {
                 activeElement = target;
-                
+
                 // PARSE THE TEXT HERE
                 tooltip.innerHTML = parseCustomSyntax(rawText);
-                
+
                 applyTheme();
                 tooltip.classList.add('visible');
             }
