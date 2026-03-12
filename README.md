@@ -9,6 +9,7 @@ A lightweight, zero-dependency JavaScript library that turns standard HTML `titl
 - **Rich Text Engine:** Use simple shortcodes to style specific parts of the text.
 - **Auto-Fetch Fonts:** Use `&fn=FontName;` and it automatically loads it from Google Fonts.
 - **Smart Positioning:** Keeps tooltips on screen (flips edges).
+- **Mobile Optimized:** A separate positioning engine for small screens centers the tooltip and clamps it to the viewport, ensuring it's always fully visible.
 - **Auto-Contrast:** Detects Dark/Light backgrounds and adjusts colors automatically.
 - **Safety:** Sanitizes HTML to prevent XSS while allowing styling.
 - **Stability:** Auto-closes on Scroll, Click, or Tab Switch.
