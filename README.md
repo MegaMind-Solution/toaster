@@ -24,7 +24,7 @@ A lightweight, zero-dependency JavaScript library that turns standard HTML `titl
 ```
 
 ```html
-<script src="https://megamind-solution.github.io/toaster/src/toaster.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/MegaMind-Solution/toaster@main/src/toaster.js"></script>
 ```
 
 ## 🎨 Rich Text Syntax
