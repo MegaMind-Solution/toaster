@@ -1,270 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22monospace%22 font-weight=%22900%22 font-size=%22100px%22 fill=%22%23ed0303%22>UT</text></svg>">
-    <title>Universal Toaster v3.0 | Rich Text Tooltips</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Toaster v4.0 | A Modern Tooltip Library</title>
     <style>
-        :root { --primary: #ed0303; --bg: #f8fafc; --text: #334155; --code-bg: #1e293b; --card-bg: #ffffff; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
-        
-        /* Layout */
-        .hero { background: white; padding: 60px 20px; text-align: center; border-bottom: 1px solid #e2e8f0; }
-        .hero h1 { margin: 0; font-size: 2.8rem; color: #0f172a; letter-spacing: -1px; }
-        .hero p { font-size: 1.2rem; color: #64748b; max-width: 600px; margin: 15px auto 0; }
-        .btn-download { display: inline-block; margin-top: 20px; padding: 12px 24px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; }
-        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
-        .badge { display: inline-block; background: #dbeafe; color: #1e40af; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
-
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-        
-        /* Sections */
-        section { margin-bottom: 50px; }
-        h2 { font-size: 1.8rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 20px; color: #0f172a; }
-        
-        /* Syntax Table */
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-        th { background: #f1f5f9; font-weight: 600; }
-        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; color: #ed0303; font-size: 0.9em; }
-
-        /* Demo Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; }
-        .card h3 { margin-top: 0; color: var(--primary); }
-        .card p { font-size: 0.95rem; color: #64748b; margin-bottom: 15px; }
-
-        /* Interactive Elements */
-        .btn-demo { 
-            background: white; border: 1px solid #cbd5e1; padding: 10px 20px; 
-            border-radius: 6px; cursor: pointer; font-weight: 600; color: #334155; 
-            transition: all 0.2s; display: block; width: 100%; text-align: center;
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #eef2ff;
+            --bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --code-bg: #1e293b;
+            --border-color: #e2e8f0;
         }
-        .btn-demo:hover { border-color: var(--primary); color: var(--primary); background: #eef2ff; }
 
-        .dark-mode-zone { background: #0f172a; padding: 30px; border-radius: 12px; text-align: center; color: white; }
-         .corner-btn { position: fixed; bottom: 20px; right: 20px; background: #ef4444; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); font-weight: bold; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        /* --- LAYOUT & TYPOGRAPHY --- */
+        .hero {
+            background: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            letter-spacing: -2px;
+            margin: 0;
+            background: linear-gradient(45deg, var(--primary), #7c3aed);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            padding-top: 40px;
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* --- UI COMPONENTS --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content {
+            flex-grow: 1;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .btn-demo {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .btn-demo:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        code {
+            padding: 3px 7px;
+            border-radius: 5px;
+            color: #16a64c;
+            font-size: 0.9em;
+            font-family: 'SF Mono', Consolas, monospace;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: #cbd5e1;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
     </style>
-
-    <!-- CONFIGURATION -->
-    <script>
-        window.UniversalToasterConfig = {
-            fontSize: "13px",
-            borderRadius: "6px",
-            padding: "8px 12px"
-            // Colors set to null for Auto-Contrast
-        };
-    </script>
 </head>
-<body>
 
+<body>
     <div class="hero">
-        <p>Turn native HTML tooltips into modern, smart floating toasts.</p>
-        <span class="badge">New v3.0</span>
         <h1>Universal Toaster</h1>
-        <p>The zero-dependency tooltip library with <b>Rich Text Formatting</b>, Google Fonts support, and smart positioning.</p>
-         <a href="https://github.com/MegaMind-Solution/toaster" class="btn-download">View on GitHub</a>
+        <p>A lightweight, API-driven library to transform boring native tooltips into rich, interactive, and modern UI
+            elements for any web project.</p>
     </div>
 
     <div class="container">
-         <!-- OVERVIEW -->
-         <section>
-            <h2>Overview</h2>
-            <p>
-                Universal Toaster is a plug-and-play JavaScript solution. It scans your page for any element with a 
-                <code>title="Example"</code> attribute, suppresses the browser's default tooltip, and replaces it with 
-                a sleek, hardware-accelerated floating label that follows the mouse.
-            </p>
-            <ul>
-                <li>⚡ <strong>Zero Dependencies:</strong> No jQuery, no CSS frameworks.</li>
-                <li>🌓 <strong>Auto-Contrast:</strong> Detects dark/light backgrounds automatically.</li>
-                <li>📐 <strong>Smart Positioning:</strong> Never goes off-screen (flips on edges).</li>
-                <li>📱 <strong>Mobile Optimized:</strong> Clamps to screen edges on mobile to prevent overflow.</li>
-            </ul>
-        </section>
-        <!-- SYNTAX GUIDE -->
-        <section>
-            <h2>Syntax Cheat Sheet</h2>
-            <p>Use these shortcodes inside any <code>title="..."</code> attribute.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Syntax</th>
-                        <th>Example</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><b>Font Size </b></td>
-                        <td><code>&fz=12px; ... &fz;</code></td>
-                        <td><code>&fz=12px;Font Size&fz;</code></td>
-                    </tr> 
-                    <tr>
-                        <td><b>Text Color</b></td>
-                        <td><code>&cl=color; ... &cl;</code></td>
-                        <td><code>&cl=red;Error&cl;</code></td>
-                    </tr>
-                    <tr>
-                        <td><b>Background</b></td>
-                        <td><code>&bgcl=color; ... &bgcl;</code></td>
-                        <td><code>&bgcl=yellow;Highlight&bgcl;</code></td>
-                    </tr>
-                    <tr>
-                        <td><b>Font Family</b></td>
-                        <td><code>&fn=Name; ... &fn;</code></td>
-                        <td><code>&fn=Roboto;Hello&fn;</code></td>
-                    </tr>
-                    <tr>
-                        <td><b>Font Weight</b></td>
-                        <td><code>&fw=Weight; ... &fw;</code></td>
-                        <td><code>&fw=bold;Bold Text&fw;</code></td>
-                    </tr>
-                    <tr>
-                        <td><b>Truncate</b></td>
-                        <td><code>&chr=Limit; ... &chr;</code></td>
-                        <td><code>&chr=10;Long Text&chr;</code></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
 
-         <!-- SECTION: INSTALLATION -->
-        <section>
-            <h2>Installation & Tutorial</h2>
-            <p>1. Download <a href="https://gitfolderdownloader.github.io/api/?=https://github.com/MegaMind-Solution/toaster/tree/main/src" class="btn-download" style="padding: 0;background: transparent;border-radius: 0;"><code>toaster.js</code></a> and place it in your project.</p>
-            <p>2. Or use hosted file</p>
-            <p>3. Add the script to the bottom of your HTML body.</p>
-            <pre><code><span class="comment">&lt;!-- Optional: Configuration (Place BEFORE the script) --&gt;</span>
-&lt;script&gt;
-  window.UniversalToasterConfig = {
-        // COLORS
-        // Set to null to allow Auto-Contrast (Recommended)
-        backgroundColor: null,   // e.g. "#333"
-        textColor:       null,   // e.g. "#fff"
-        
-        // TYPOGRAPHY
-        fontFamily:      "inherit", // Uses page font
-        fontSize:        "13px",
-        fontWeight:      "500",
-        
-        // SHAPE
-        borderRadius:    "6px",
-        padding:         "8px 12px",
-        boxShadow:       "0 4px 12px rgba(0,0,0,0.15)"
-    };
-      <span class="comment">// Leave colors null for auto-contrast</span>
-  };
-&lt;/script&gt;
-
-<span class="comment">&lt;!-- Main Script --&gt;</span>
-&lt;script src="src/toaster.js"&gt;&lt;/script&gt;</code></pre>
-        </section>
-
-        <!-- LIVE DEMOS -->
-        <section>
-            <h2>Live Examples</h2>
-              <p>Hover over the elements below to see the script in action.</p>
+        <!-- OVERVIEW SECTION -->
+        <section id="overview">
+            <h2>Why Choose Universal Toaster?</h2>
             <div class="grid">
-                
-                <!-- 1. COLORS -->
                 <div class="card">
-                    <h3>🎨 Colors & Backgrounds</h3>
-                    <p>Mix text colors and background highlights.</p>
-                    <button class="btn-demo" title="Normal text. &cl=#ec4899;Pink Text&cl; and &bgcl=#fef08a;&cl=black; Highlighted &cl;&bgcl;">
-                        Hover: Colors
-                    </button>
-                    <br>
-                    <code>title="&cl=red;Red&cl; &bgcl=yellow;Bg&bgcl;"</code>
+                    <h3>🚀 API Driven</h3>
+                    <p>Control the entire lifecycle with <code>init()</code>, <code>destroy()</code>, and
+                        <code>updateConfig()</code>. Perfect for SPAs (React, Vue, Svelte) and extensions.
+                    </p>
                 </div>
-
-                <!-- 2. FONTS -->
                 <div class="card">
-                    <h3>🔤 Google Fonts</h3>
-                    <p>Auto-fetches fonts from Google API.</p>
-                    <button class="btn-demo" title="Standard. &fn=Pacifico;&cl=#4f46e5;Fancy Handwriting!&cl;&fn; &fn=Oswald;Modern Font&fn;">
-                        Hover: Fonts
-                    </button>
-                    <br>
-                    <code>title="&fn=Pacifico;Handwriting&fn;"</code>
+                    <h3>🎨 Rich Text Engine</h3>
+                    <p>Go beyond plain text. Add lists, links, icons, images, custom fonts, and colors directly inside
+                        your <code>title</code> attribute using simple shortcodes.</p>
                 </div>
-
-                <!-- 3. WEIGHT & LIMITS -->
                 <div class="card">
-                    <h3>⚖️ Weights & Limits</h3>
-                    <p>Bold text and character truncation.</p>
-                    <button class="btn-demo" title="&fw=bold;BOLD TITLE&fw;
-Preview: &chr=20;This is a very long description that will be cut off automatically.&chr;">
-                        Hover: Truncation
-                    </button>
-                    <br>
-                    <code>title="&fw=bold;B&fw; &chr=5;Long...&chr;"</code>
+                    <h3>💡 Web App Ready</h3>
+                    <p>With Shadow DOM support and a `MutationObserver`, tooltips work reliably on dynamic content and
+                        complex web components out of the box.</p>
                 </div>
-
-                <!-- 4. COMPLEX CARD -->
-                <div class="card">
-                    <h3>🆔 User Card (Nested)</h3>
-                    <p>Combine everything for rich UIs.</p>
-                    <button class="btn-demo" title="&fn=Roboto;&fw=bold;User Profile&fw;&fn;
-&fw=bold;Name:&fw; &cl=#0ea5e9;Jane Doe&cl;
-&fw=bold;Status:&fw; &bgcl=#22c55e;&cl=white; ONLINE &cl;&bgcl;
-&fw=bold;Bio:&fw; &fn=Caveat;&cl=gray;Frontend Dev & Coffee Lover&cl;&fn;">
-                        Hover: User Card
-                    </button>
-                </div>
-                  <!-- 2. FONT SIZE -->
-                <div class="card">
-                    <h3>⭕ Font Size</h3>
-                    <p>Auto-fetches fonts from Google API.</p>
-                    <button class="btn-demo" title="&fz=50px;Font Size Is 50PX&fz; &cl=red;And&cl; &fz=25px;Font Size Is 25PX&fz;">
-                        Hover: Fonts
-                    </button>
-                    <br>
-                    <code>title="&fn=18px;Font Size Is 18PX&fz;"</code>
-                </div>
-
             </div>
         </section>
 
-        <!-- DARK MODE -->
-        <section>
-            <h2>Auto-Contrast System</h2>
-            <div class="dark-mode-zone">
-                <p>The toaster detects this dark container and automatically switches to Light Theme.</p>
-                <button class="btn-demo" style="background:#334155; color:white; border:none;" 
-                        title="💡 I turned white because the background is dark!">
-                    Hover Me (Dark Mode)
-                </button>
-            </div>
+        <!-- GUIDE SECTION -->
+        <section id="guide">
+            <h2>Developer's Guide</h2>
+            <h3>How It Works</h3>
+            <p>The library works in three simple steps:</p>
+            <ol>
+                <li><strong>Scan & Swap:</strong> On initialization, it scans the DOM for elements with a `title`
+                    attribute. It moves the content to a `data-toaster-title` attribute to prevent the native browser
+                    tooltip from appearing.</li>
+                <li><strong>Listen & Parse:</strong> It listens for `mouseover` events. When you hover over a target
+                    element, it reads the data attribute and parses any rich text shortcodes into styled HTML.</li>
+                <li><strong>Position & Display:</strong> It calculates the optimal position for the tooltip, ensuring it
+                    never goes off-screen (even on mobile), and displays it with a subtle fade-in effect.</li>
+            </ol>
+
+            <h3>API Controls</h3>
+            <p>Control the library programmatically. Here are the core methods:</p>
+            <pre><code><span style="color:#64748b;">// Initialize the library with custom settings</span>
+UniversalToaster.init({
+  delay: 200,          <span style="color:#64748b;">// ms before showing</span>
+  backgroundColor: null,   <span style="color:#64748b;">// e.g. "#333"</span>
+  textColor: null,   <span style="color:#64748b;">// e.g. "#fff"</span>
+  <span style="color:#64748b;">// TYPOGRAPHY</span>
+  fontFamily: "inherit", <span style="color:#64748b;">// Uses page font</span>
+  fontSize: "13px",
+  fontWeight: "500",
+  <span style="color:#64748b;">// SHAPE</span>
+  borderRadius: "6px",
+  padding: "8px 12px",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+});
+
+<span style="color:#64748b;">// Update settings on the fly</span>
+UniversalToaster.updateConfig({ borderRadius: '20px' });
+
+<span style="color:#64748b;">// Cleanly remove all listeners and elements (for SPAs)</span>
+UniversalToaster.destroy();
+</code></pre>
+            <p>
+                <button class="btn-demo" style="display:inline-block; width:auto;"
+                    onclick="UniversalToaster.updateConfig({borderRadius: '50px', padding: '15px 25px'})"
+                    title="Updates the global config to use a pill shape">Try updateConfig()</button>
+                <button class="btn-demo" style="display:inline-block; width:auto;" onclick="UniversalToaster.destroy()"
+                    title="Disables all tooltips on the page">Try destroy()</button>
+            </p>
         </section>
 
+        <!-- DEMO SECTION -->
+        <section id="demos">
+            <h2>Live Demos & Examples</h2>
+            <div class="grid">
+                <!-- Demo 1: Lists -->
+                <div class="card">
+                    <h3>✅ Checklists & Dividers</h3>
+                    <p>Use lists and horizontal rules (<code>&hr;</code>) to structure information clearly.</p>
+                    <div class="card-content"></div>
+                    <button class="btn-demo"
+                        title="&fw=bold;Deployment Steps&fw;&hr;&li=✅;Build Project&li;&li=✅;Run Tests&li;&li=⏳;Deploy to Staging&li;&li=◻️;Deploy to Production&li;">
+                        Hover: Deployment Checklist
+                    </button>
+                </div>
+
+                <!-- Demo 2: Interactive -->
+                <div class="card">
+                    <h3>🔗 Interactive Links</h3>
+                    <p>Using <code>&lnk=;</code> makes the tooltip interactive, allowing users to hover and click links.
+                    </p>
+                    <div class="card-content"></div>
+                    <button class="btn-demo"
+                        title="&icon=info; Your free trial is ending soon. &lnk=#;Upgrade your account&lnk; to keep your projects active.">
+                        Hover: Interactive Alert
+                    </button>
+                </div>
+
+                <!-- Demo 3: User Card -->
+                <div class="card">
+                    <h3>🖼️ Rich User Profile</h3>
+                    <p>Combine images, icons, and text styles to create detailed profile cards.</p>
+                    <div class="card-content"></div>
+                    <button class="btn-demo"
+                        title="&img=https://i.pravatar.cc/120;&fw=bold; John Doe&fw; &cl=gray;@sarah.c&cl;&hr;&icon=info; Last seen: 2 hours ago&li=📍;Los Angeles, CA&li;">
+                        Hover: User Profile
+                    </button>
+                </div>
+
+                <!-- Demo 4: E-commerce -->
+                <div class="card">
+                    <h3>🛍️ Product Preview</h3>
+                    <p>Perfect for e-commerce sites to show quick product details without a full modal.</p>
+                    <div class="card-content"></div>
+                    <button class="btn-demo"
+                        title="&fn=Oswald;Vintage Leather Watch&fn;&img=https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=300&q=80;&li=⭐;4.8 (320 reviews)&li;&li=💰;$199.99&li;&bgcl=#16a34a;&cl=white; In Stock &cl;&bgcl;">
+                        Hover: Product Details
+                    </button>
+                </div>
+
+                <!-- Demo 5: Width Override -->
+                <div class="card">
+                    <h3>↔️ Custom Width</h3>
+                    <p>Use <code>&w=400px;</code> to override the default width for content like code snippets.</p>
+                    <div class="card-content"></div>
+                    <button class="btn-demo" title="&w=400px;&fw=bold;Code Snippet&fw;&hr;&cl=#a5b4fc;const toaster = UniversalToaster.init({
+  delay: 200
+});&cl;">
+                        Hover: Code Snippet
+                    </button>
+                </div>
+
+                <!-- Demo 6: Dark Mode -->
+                <div class="card" style="background:var(--code-bg); color:white;">
+                    <h3 style="color:#a5b4fc;">🌓 Auto-Theme</h3>
+                    <p style="color:#94a3b8;">The library detects the dark background and automatically inverts the
+                        tooltip colors for high contrast.</p>
+                    <div class="card-content"></div>
+                    <button class="btn-demo" style="background:#334155; color:white; border:none;"
+                        title="💡 My colors flipped automatically!">
+                        Hover: Dark Mode Test
+                    </button>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <a href="" class="corner-btn" title="🚀 I flipped Up and Left because I hit the corner!">
-        Corner Test
-    </a>
-    <!-- SCRIPT LOADER -->
+    <!-- Initialize The Library -->
     <script src="src/toaster.js"></script>
     <script>
-  window.UniversalToasterConfig = {
-        // COLORS
-        // Set to null to allow Auto-Contrast (Recommended)
-        backgroundColor: null,   // e.g. "#333"
-        textColor:       null,   // e.g. "#fff"
-        
-        // TYPOGRAPHY
-        fontFamily:      "inherit", // Uses page font
-        fontSize:        "13px",
-        fontWeight:      "500",
-        
-        // SHAPE
-        borderRadius:    "6px",
-        padding:         "8px 12px",
-        boxShadow:       "0 4px 12px rgba(0,0,0,0.15)"
-    };
-      // Leave colors null for auto-contrast
-  };
-</script>
-
+        UniversalToaster.init({
+            delay: 100
+        });
+    </script>
 </body>
+
 </html>
