@@ -1,22 +1,27 @@
 # Universal Toaster
 
-A lightweight, zero-dependency JavaScript library that turns standard HTML `title` attributes into **Rich Text** floating tooltips. 
+A lightweight, zero-dependency JavaScript library that turns standard HTML `title` attributes into **Rich Text** floating tooltips.Designed for modern websites, browser extensions, and single-page applications (SPAs).
 
-**New in v3.0:** Support for Colors, Backgrounds, Custom Fonts (Google Fonts), Font Weights, and Text Truncation inside the tooltip!
 
-## ✨ Features
 
-- **Rich Text Engine:** Use simple shortcodes to style specific parts of the text.
+## ✨ Key Features
+
 - **Auto-Fetch Fonts:** Use `&fn=FontName;` and it automatically loads it from Google Fonts.
 - **Smart Positioning:** Keeps tooltips on screen (flips edges).
 - **Mobile Optimized:** A separate positioning engine for small screens centers the tooltip and clamps it to the viewport, ensuring it's always fully visible.
 - **Auto-Contrast:** Detects Dark/Light backgrounds and adjusts colors automatically.
 - **Safety:** Sanitizes HTML to prevent XSS while allowing styling.
 - **Stability:** Auto-closes on Scroll, Click, or Tab Switch.
+- **API-Driven:** Control the library with `init`, `destroy`, and `updateConfig` methods.
+- **Web App Ready:** `MutationObserver` automatically detects dynamically added content.
+- **Shadow DOM Support:** Works seamlessly inside web components and modern frameworks.
+- **Rich Content Engine:** Style tooltips with lists, links, icons, images, custom fonts, and more.
+- **Interactive Tooltips:** Links inside a tooltip make it "hoverable" so they can be clicked.
+
 
 ## 📦 Installation
 
-1.  Download the [`src/toaster.js`](https://gitfolderdownloader.github.io/api/?=https://github.com/MegaMind-Solution/toaster/tree/main/src&name=Universal%20Toaster) Or Use hosted script
+1.  Download the [`src/toaster.js`](https://gitfolderdownloader.github.io/api/?=https://github.com/MegaMind-Solution/toaster/tree/main/src&name=Universal%20Toaster) Or Use js deliver version
 2.  Add it to the bottom of your `<body>`.
 
 ```html
@@ -31,30 +36,35 @@ A lightweight, zero-dependency JavaScript library that turns standard HTML `titl
 
 You can use these codes inside any `title="..."` attribute.
 
-| Feature | Syntax | Example |
-| :--- | :--- | :--- |
-| **Text Color** | `&fz=Value; ... &fz;` | `&fz=12px;Error&fz;` |
-| **Text Color** | `&cl=Value; ... &cl;` | `&cl=red;Error&cl;` |
-| **Background** | `&bgcl=Value; ... &bgcl;` | `&bgcl=yellow;Highlight&bgcl;` |
-| **Font Family** | `&fn=Name; ... &fn;` | `&fn=Roboto;Hello&fn;` |
-| **Font Weight** | `&fw=Weight; ... &fw;` | `&fw=bold;Bold&fw;` |
-| **Truncate** | `&chr=Limit; ... &chr;` | `&chr=10;VeryLongText&chr;` |
+| Feature            | Syntax                   | Example                        |
+| :----------------- | :----------------------- | :----------------------------- |
+| **List Item**      | `&li=symbol;Text&li;`    | `&li=$;First Point&li;`        |
+| **Link**           | `&lnk=url;Text&lnk;`     | `&lnk=//google.com;Go&lnk;`    |
+| **Icon**           | `&icon=name;`            | `&icon=warning; Warning!`      |
+| **Image**          | `&img=url;`              | `&img=path/to/img.png;`        |
+| **Divider**        | `&hr;`                   | `Line 1&hr;Line 2`             |
+| **Width Override** | `&w=value;`              | `&w=300px;Wider content...`    |
+| **Text Color**     | `&cl=color;Text&cl;`     | `&cl=red;Error&cl;`            |
+| **Background**     | `&bgcl=color;Text&bgcl;` | `&bgcl=yellow;Highlight&bgcl;` |
 
 ### Examples
 
 **1. Size, Colors & Highlights**
+
 ```html
 <button title="This is &fz=12px;&cl=red;Important&cl; and this is &bgcl=yellow;Highlighted&bgcl;&fz;">Hover Me</button>
 ```
 
 **2. Custom Fonts (Google Fonts)**
-*The script automatically adds the `<link>` tag for the font.*
+_The script automatically adds the `<link>` tag for the font._
+
 ```html
 <button title="&fn=Pacifico;Start with a cool font&fn; and end normal.">Hover Me</button>
 ```
 
 **3. Character Limit**
-*Useful for previewing long database content.*
+_Useful for previewing long database content._
+
 ```html
 <span title="Preview: &chr=20;This is a very long description that will be cut off&chr;">Hover for preview</span>
 ```
@@ -65,24 +75,37 @@ Place this **before** loading the script to set global defaults.
 
 ```html
 <script>
-    window.UniversalToasterConfig = {
-        // COLORS (Set to null for Auto-Contrast)
-        backgroundColor: null, 
-        textColor:       null,
-        
-        // VISUALS
-        borderRadius:    "6px",
-        fontSize:        "13px",
-        fontFamily:      "inherit", // Default font
-        padding:         "8px 12px",
-        boxShadow:       "0 4px 12px rgba(0,0,0,0.2)"
-    };
+  // Initialize with default settings
+  UniversalToaster.init();
+
+  // Or, initialize with custom options
+  UniversalToaster.init({
+    delay: 200, // Wait 200ms before showing
+    fontSize: "14px",
+    borderRadius: "8px",
+    backgroundColor: null, // e.g. "#333"
+    textColor: null, // e.g. "#fff"
+    // TYPOGRAPHY
+    fontFamily: "inherit", // Uses page font
+    fontSize: "13px",
+    fontWeight: "500",
+    // SHAPE
+    borderRadius: "6px",
+    padding: "8px 12px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+  });
 </script>
 ```
 
-## 🛡 Security Note
+### API Methods
 
-The script includes an HTML sanitizer. It escapes raw HTML tags (like `<script>`) to prevent XSS attacks, while properly parsing the custom `&cmd=val;` syntax.
+- **`UniversalToaster.init(config)`**: Starts the library. `config` is an optional object.
+- **`UniversalToaster.destroy()`**: Safely removes all listeners and elements. Essential for SPAs when components unmount.
+- **`UniversalToaster.updateConfig(config)`**: Updates the global configuration on the fly.
+
+## 🎨 Rich Text Syntax
+
+Use these shortcodes inside any `title="..."` attribute.
 
 ## License
 
